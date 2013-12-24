@@ -1,6 +1,12 @@
 # sinatra/quiet_assets
 
-This script is to be used in a modular app, and registered in the development configuration like so:
+It's annoying to see your logs blown up with asset requests.
+
+```
+127.0.0.1 - - [23/Dec/2013 19:50:04] "GET /assets/application.css HTTP/1.1" 200 521 0.0283
+```
+
+Register queit assets in the development configuration, and you won't see the assets in the development logs ever again. 
 
 ```ruby
 configure :development do
@@ -10,11 +16,11 @@ end
 
 ### Fair Warning
 
-The script monkey-patches `Rack::CommonLogger`, and is based on the code for version `1.6.0.alpha`. If Rack is updated with breaking changes, this script could be broken. 
+The script monkey-patches `Rack::CommonLogger`, based on version `1.6.0.alpha`. If Rack is updated with breaking changes, this script could break as well. *Edit*: still working with `sinatra 1.4.4`.
 
 ### Modifying Extensions
 
-Set the extensions to your choosing:
+You can choose quiet asset extensions:
 
 ```ruby
 Sinatra::QuietAssets.extensions = [ 'js', 'css' ]
@@ -29,4 +35,13 @@ Sinatra::QuietAssets.extensions += %w(mp3 wav)
 
 ### Installation
 
-Copy `quiet_assets.rb` into your application folder, and require it. Hopefully it will be in a gem, or even better yet in `sinatra-contrib` soon. 
+1. Copy `quiet_assets.rb` into your project folder, where other modules live.
+
+2. Require the file, through a relative path or via the load path, and then register it.
+
+  ```ruby
+  # app.rb
+  register Sinatra::QuietAssets
+  ```
+
+There's an example at `example/app.rb`.
