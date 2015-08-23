@@ -3,7 +3,7 @@ require 'sinatra/base'
 module Sinatra
   module QuietAssets
     # images, fonts, stylesheets, scripts
-    @extensions = %w(png jpg jpeg ico gif woff tff svg eot css js)
+    @extensions = %w(png jpg jpeg ico gif woff ttf svg eot css js)
     
     class << self
       attr_accessor :extensions
